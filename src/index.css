@@ -5,9 +5,58 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+a {
+  text-decoration: none;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-links {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+
+}
+.banner {
+  height: 50vh;
+  background-image: url("../Assets/Pizza.jpg") ;
+}
+.title-link{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+}
+.title-link h1 {
+  text-shadow: 1px 1px 4px black;
+}
+
+#order-pizza {
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  background-color: aliceblue;
+  box-shadow: 1px 1px 4px darkgray;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#order-pizza:hover {
+  box-shadow: 1px 2px 6px black;
+  color: rgb(255, 30, 0);
 }

@@ -24,11 +24,14 @@ const App = () => {
   return ( 
     <div className="pizza-app">
       <nav>
-        <h1 className="header">Bloomtech Eats</h1>
-        <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/pizza">Order</Link>
+        <div className="header">
+          <h1 className="title-logo">Bloomtech Eats</h1>
+          <div className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/pizza">Order</Link>
+          </div>
         </div>
+        
       </nav>
       <Switch>
         <Route path={"/pizza/:pizzaID"}>
