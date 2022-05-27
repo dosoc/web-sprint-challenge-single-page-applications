@@ -11,28 +11,47 @@ import schema from "./validation/formSchema"
 
 
 const initialFormValues = {
+  name: "",
   size: "",
-  sauce: "",
-  special_instuctions: "",
+  pineapple: false,
+  jalapeno: false,
+  pepperoni: false,
+  bacon: false,
+  special: "",
+
 }
 const initialFormErrors = {
   name: "",
   size: ""
 }
 const initialDisabled = true;
+const initialOrders = [];
 
 
 const App = () => {
+  const [ orders, setOrders ] = useState(initialOrders)
   const [ formValues, setFormValues ] = useState(initialFormValues);
-  const [ formErrors, setFormErrors ] = useState("");
+  const [ formErrors, setFormErrors ] = useState(initialFormErrors);
   const [ disabled, setDisabled ] = useState(initialDisabled);
 
-  const formSubmit = () => {
-
+  const validate = (name, value) => {
+    yup.reach(schema, name).validate(value)
+      .then(() => setFormErrors({...formErrors, [name]: ""}))
+      .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
   }
 
-  const inputChange = () => {
+  const formSubmit = () => {
+    const newOrder = {
+      name: formValues.name.trim(),
+      size: formValues.size.trim(),
+      toppings: ["pineapple", "jalapenos", "pepperoni", "bacon"].filter(top=> !!formValues[top]),
+      special: formValues.special.trim()
+    }
+  }
 
+  const inputChange = (name, value) => {
+    validate(name, value)
+    setFormValues({...formValues, [name]: value});
   }
 
 
@@ -55,7 +74,7 @@ const App = () => {
         <Route path="/pizza">
           <Form 
             values={formValues}
-            change={inputChange}
+            update={inputChange}
             submit={formSubmit}
             disabled={disabled}
             errors={formErrors}

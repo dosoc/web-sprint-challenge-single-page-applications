@@ -4,15 +4,14 @@ const Form = (props) => {
     const { values, update, submit, disabled, errors } = props;
 
     const onChange = evt => {
-        const { name, value } = evt.target;
-        update(name, value);
+        const { name, value, checked, type } = evt.target;
+        const newValue = type === 'checkbox' ? checked : value;
+        update(name, newValue);
     }
     const onSubmit = evt =>{
         evt.preventDefault();
         submit()
     }
-
-
     
     return (
         <form id='pizza-form' className='form container' onSubmit={onSubmit}>
@@ -80,7 +79,8 @@ const Form = (props) => {
                 </div>
                 <br />
                 <label>Special Instructions
-                    <input 
+                    <textarea
+                    id='special-text' 
                     type="text"
                     name="special"
                     value={values.special}
