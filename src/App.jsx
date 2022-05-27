@@ -4,21 +4,36 @@ import { Link, Switch, Route } from 'react-router-dom'
 
 import Form from "./components/Form.jsx"
 import Confirmation from "./components/Confirmation.jsx"
-import Home from './components/Home.jsx'
+import Home from './components/Home.jsx';
+
+import * as yup from 'yup';
+import schema from "./validation/formSchema"
 
 
 const initialFormValues = {
   size: "",
   sauce: "",
-  pineapple: false,
-  jalapeno: false,
-  pepperoni: false,
   special_instuctions: "",
 }
+const initialFormErrors = {
+  name: "",
+  size: ""
+}
+const initialDisabled = true;
 
 
 const App = () => {
-  const [ formValues, setFormValues ] = useState(initialFormValues)
+  const [ formValues, setFormValues ] = useState(initialFormValues);
+  const [ formErrors, setFormErrors ] = useState("");
+  const [ disabled, setDisabled ] = useState(initialDisabled);
+
+  const formSubmit = () => {
+
+  }
+
+  const inputChange = () => {
+
+  }
 
 
   return ( 
@@ -38,7 +53,13 @@ const App = () => {
           <Confirmation/>
         </Route>
         <Route path="/pizza">
-          <Form/>
+          <Form 
+            values={formValues}
+            change={inputChange}
+            submit={formSubmit}
+            disabled={disabled}
+            errors={formErrors}
+            />
         </Route>
         <Route path="/">
           <Home/>
