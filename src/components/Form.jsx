@@ -27,7 +27,7 @@ const Form = (props) => {
                 <label>Name
                     <input 
                         type="text"
-                        name='name'
+                        name="name"
                         value={values.name}
                         onChange={onChange}
                         placeholder="Name..."

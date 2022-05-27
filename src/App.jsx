@@ -38,6 +38,7 @@ const App = () => {
     axios.post("https://reqres.in/api/orders", newOrder)
     .then(res=> {
       console.log(res)
+      setOrders([ res.data, ...orders]);
     }).catch(err=> console.error(err))
     .finally(()=> setFormValues(initialFormValues))
   }
@@ -52,7 +53,7 @@ const App = () => {
     const newOrder = {
       name: formValues.name.trim(),
       size: formValues.size.trim(),
-      toppings: ["pineapple", "jalapenos", "pepperoni", "bacon"].filter(top=> !!formValues[top]),
+      toppings: ["pineapple", "jalapeno", "pepperoni", "bacon"].filter(top=> !!formValues[top]),
       special: formValues.special.trim()
     };
     submitOrder(newOrder);
