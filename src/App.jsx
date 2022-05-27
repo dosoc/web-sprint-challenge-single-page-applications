@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link, Switch, Route } from 'react-router-dom'
 
@@ -34,6 +34,14 @@ const App = () => {
   const [ formErrors, setFormErrors ] = useState(initialFormErrors);
   const [ disabled, setDisabled ] = useState(initialDisabled);
 
+  const submitOrder = newOrder => {
+    axios.post("https://reqres.in/api/orders", newOrder)
+    .then(res=> {
+      console.log(res)
+    }).catch(err=> console.error(err))
+    .finally(()=> setFormValues(initialFormValues))
+  }
+
   const validate = (name, value) => {
     yup.reach(schema, name).validate(value)
       .then(() => setFormErrors({...formErrors, [name]: ""}))
@@ -46,13 +54,18 @@ const App = () => {
       size: formValues.size.trim(),
       toppings: ["pineapple", "jalapenos", "pepperoni", "bacon"].filter(top=> !!formValues[top]),
       special: formValues.special.trim()
-    }
+    };
+    submitOrder(newOrder);
   }
 
   const inputChange = (name, value) => {
     validate(name, value)
     setFormValues({...formValues, [name]: value});
   }
+
+  useEffect(()=> {
+    schema.isValid(formValues).then(valid=> setDisabled(!valid))
+  }, [formValues])
 
 
   return ( 
